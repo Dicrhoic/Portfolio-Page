@@ -1,178 +1,174 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
     <head>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
-        
-        /* Full-width input fields */
-        input[type=text], input[type=password] {
-          width: 100%;
-          padding: 12px 20px;
-          margin: 8px 0;
-          display: inline-block;
-          border: 1px solid #ccc;
-          box-sizing: border-box;
-        }
-        
-        /* Set a style for all buttons */
-        .loginButton {
-          background-color: #04AA6D;
-          color: white;
-          padding: 14px 20px;
-          margin: 8px 0;
-          border: none;
-          cursor: pointer;
-          width: 100%;
-        }
-        
-        button:hover {
-          opacity: 0.8;
-        }
-        
-        /* Extra styles for the cancel button */
-        .cancelbtn {
-          width: auto;
-          padding: 10px 18px;
-          background-color: #f44336;
-        }
-        
-        /* Center the image and position the close button */
-        .imgcontainer {
-          text-align: center;
-          margin: 24px 0 12px 0;
-          position: relative;
-        }
-        
-        img.avatar {
-          width: 40%;
-          border-radius: 50%;
-        }
-        
-        .container {
-          padding: 16px;
-        }
-        
-        span.psw {
-          float: right;
-          padding-top: 16px;
-        }
-        
-        /* The Modal (background) */
-        .modal {
-          display: none; /* Hidden by default */
-          position: fixed; /* Stay in place */
-          z-index: 1; /* Sit on top */
-          left: 0;
-          top: 0;
-          width: 100%; /* Full width */
-          height: 100%; /* Full height */
-          overflow: auto; /* Enable scroll if needed */
-          background-color: rgb(0,0,0); /* Fallback color */
-          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-          padding-top: 60px;
-        }
-        
-        /* Modal Content/Box */
-        .modal-content {
-          background-color: #fefefe;
-          margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-          border: 1px solid #888;
-          width: 80%; /* Could be more or less, depending on screen size */
-        }
-        
-        /* The Close Button (x) */
-        .close {
-          position: absolute;
-          right: 25px;
-          top: 0;
-          color: #000;
-          font-size: 35px;
-          font-weight: bold;
-        }
-        
-        .close:hover,
-        .close:focus {
-          color: red;
-          cursor: pointer;
-        }
-        
-        /* Add Zoom Animation */
-        .animate {
-          -webkit-animation: animatezoom 0.6s;
-          animation: animatezoom 0.6s
-        }
-        
-        @-webkit-keyframes animatezoom {
-          from {-webkit-transform: scale(0)} 
-          to {-webkit-transform: scale(1)}
-        }
-          
-        @keyframes animatezoom {
-          from {transform: scale(0)} 
-          to {transform: scale(1)}
-        }
-        
-        /* Change styles for span and cancel button on extra small screens */
-        @media screen and (max-width: 300px) {
-          span.psw {
-             display: block;
-             float: none;
-          }
-          .cancelbtn {
-             width: 100%;
-          }
-        }
-        </style>
+        <link rel="stylesheet" href="./styles/home.css"  charset="utf-8">
         <script>
+          var loggedUser = "";
             function loginAuth()
-            {
+            {   
+                var xmlFile = 'accounts.xml';
                 var xmlDoc, parser, xmlU, xmlP;
                 parser = new DOMParser();
                 var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", "accounts.xml", true);
+                xhttp.open("GET", xmlFile, true);
                 xhttp.send();
-                document.getElementById("debug").innerHTML = xhttp.responseText;
-                
+                xhttp.onreadystatechange = function() {
+                  if (this.readyState === 4 && this.status === 200) 
+                    {      
+                        console.log(xhttp.responseText);
+                        credentialAuth(this);
+                    }
+                }
+            }
+            function credentialAuth(xml)
+            {
+              var u = document.getElementById('username').value;
+              var p = document.getElementById('password').value;
+              console.log("P" + p, " U: " + u);
+              var xmlDoc = xml.responseXML;
+              var x = xmlDoc.documentElement;
+              var y = xmlDoc.documentElement.childNodes;
+              var txt = " "; 
+              var z;
+              for (i = 0; i < y.length ;i++) 
+              { 
+                for(z = 0; z < y[i].childNodes.length; z++)
+                {
+                  if (y[i].childNodes[z].nodeType != 3) 
+                  {
+                    txt += "Node " + i + " Nodename: " + y[i].childNodes[z].nodeName +
+                    " (value at index " + z+ ": " + y[i].childNodes[z].childNodes[0].nodeValue + ")";
+                    console.log(txt);
+                    txt = "";
+                    var a =  y[i].childNodes[1].childNodes[0].nodeValue
+                    var b =  y[i].childNodes[3].childNodes[0].nodeValue
+                    if ( a == u && b == p)
+                    { 
+                      document.getElementById("loginBtn").style.display="none";
+                      document.getElementById("login").style.display= "none";
+                      alert("Login successful. Welcome " + a);
+                      loggedUser = a;
+                      checkLoginStatus();
+                      break;
+                    }
+                  }
+                }     
+              }
+            }
+            function checkLoginStatus()
+            {
+              if(loggedUser == "")
+              { 
+                document.getElementById("signoutBtn").style.display = "none";
+                alert("Please Login")
+                document.getElementById("login").style.display= "block";
+              }
+              if(loggedUser !="")
+              {
+                document.getElementById("signoutBtn").style.display = "inline";
+              }
+            }
+            function logout()
+            {
+              loggedUser = "";
+              document.getElementById("loginBtn").style.display = "inline";
+              document.getElementById("signoutBtn").style.display = "none";
+            }
+            function loadLoginForm()
+            {
+              document.getElementById('login').style.display="block";
+              document.getElementById('login').style.style="width:auto";
+            }
+            function helpPass()
+            {
+              alert("Message Dichroic on Discord");
+            }
+            function openCity(evt, cityName) 
+            {
+              var i, tabcontent, tablinks;
+              tabcontent = document.getElementsByClassName("tabcontent");
+              for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+              }
+              tablinks = document.getElementsByClassName("tablinks");
+              for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+              }
+              document.getElementById(cityName).style.display = "block";
+              evt.currentTarget.className += " active";
+            }
+            function gachaDropDownNav()
+            {
+
+            }
+            function openNav(evt, tabName)
+            { 
+              console.log("Trying func");
+              var i, tabcontent, tablinks;
+              tabcontent = document.getElementsByClassName("tabcontent");
+              for (i = 0; i < tabcontent.length; i++) 
+              {
+                tabcontent[i].style.display = "none";
+              }
+              tablinks = document.getElementsByClassName("tablinks");
+              for (i = 0; i < tablinks.length; i++) 
+              {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+              }
+              document.getElementById(tabName).style.display = "block";
+              evt.currentTarget.className += " active";
             }
         </script>
         </head>
-    <body>
+    <body onload="checkLoginStatus()">
         <title>GBF Buddy Homepage</title>
         <h1>Homepage</h1>
         <div class="menuNavBar">
-            <button class="menuLink">Gacha Log</button>
-            <button class="menuLink">GW Teams</button>  
-            <button class="loginLink" onclick="document.getElementById('login').style.display='block'" style="width:auto;">Login</button>
+            <button class="tablinks" onclick="openNav(event, 'GachaLog')">Gacha Log</button>
+            <button class="tablinks">GW Teams</button>  
+            <button class="tablinks" onclick="loadLoginForm()" id="loginBtn">Login</button>
+            <button class="tablinks" id="signoutBtn" style.display='none' onclick="logout()">Log out</button>
         </div>
         <p id="debug">Test debugger</p>
         <div id="login" class="modal">
-  
             <form class="modal-content animate">
               <div class="imgcontainer">
                 <span onclick="document.getElementById('login').style.display='none'" class="close" title="Close Modal">&times;</span>
-                <img src="img_avatar2.png" alt="Avatar" class="avatar">
+                <img src="./assests/loginIcon.png" alt="Avatar" class="avatar">
               </div>
-          
               <div class="container">
                 <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <input type="text" placeholder="Enter Username" name="uname" id="username" required>
           
                 <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                <input type="password" placeholder="Enter Password" name="psw" id="password" required>
                   
-                <button type="submit" class="loginButton" onclick="loginAuth()">Login</button>
+                <button type="button" class="loginButton" onclick="loginAuth()">Login</button>
                 <label>
                   <input type="checkbox" checked="checked" name="remember"> Remember me
                 </label>
               </div>
-          
               <div class="container" style="background-color:#f1f1f1">
                 <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
+                <span class="psw">Forgot <a href="#" onclick="helpPass()">password?</a></span>
               </div>
             </form>
+        </div>
+        <div class="tabVerContent" id="GachaLog">
+          <div class="menuVertNavBar">
+            <button class="tablinksVert">Add Data</button>
+            <button class="tablinksVert">View Data</button>  
+        </div>
+          <div class="dropdownGacha" id="dropdownGacha">
+            <button onclick="gachaDropDownNav()" class="dropbtn">Dropdown</button>
+            <div id="gachaDrop" class="dropdown-content">
+              <a href="#">Link 1</a>
+              <a href="#">Link 2</a>
+              <a href="#">Link 3</a>
+            </div>
           </div>
-          
+        </div>  
     </body>
 </html>
