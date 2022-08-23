@@ -4,123 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="./styles/home.css"  charset="utf-8">
-        <script>
-          var loggedUser = "";
-            function loginAuth()
-            {   
-                var xmlFile = 'accounts.xml';
-                var xmlDoc, parser, xmlU, xmlP;
-                parser = new DOMParser();
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", xmlFile, true);
-                xhttp.send();
-                xhttp.onreadystatechange = function() {
-                  if (this.readyState === 4 && this.status === 200) 
-                    {      
-                        console.log(xhttp.responseText);
-                        credentialAuth(this);
-                    }
-                }
-            }
-            function credentialAuth(xml)
-            {
-              var u = document.getElementById('username').value;
-              var p = document.getElementById('password').value;
-              console.log("P" + p, " U: " + u);
-              var xmlDoc = xml.responseXML;
-              var x = xmlDoc.documentElement;
-              var y = xmlDoc.documentElement.childNodes;
-              var txt = " "; 
-              var z;
-              for (i = 0; i < y.length ;i++) 
-              { 
-                for(z = 0; z < y[i].childNodes.length; z++)
-                {
-                  if (y[i].childNodes[z].nodeType != 3) 
-                  {
-                    txt += "Node " + i + " Nodename: " + y[i].childNodes[z].nodeName +
-                    " (value at index " + z+ ": " + y[i].childNodes[z].childNodes[0].nodeValue + ")";
-                    console.log(txt);
-                    txt = "";
-                    var a =  y[i].childNodes[1].childNodes[0].nodeValue
-                    var b =  y[i].childNodes[3].childNodes[0].nodeValue
-                    if ( a == u && b == p)
-                    { 
-                      document.getElementById("loginBtn").style.display="none";
-                      document.getElementById("login").style.display= "none";
-                      alert("Login successful. Welcome " + a);
-                      loggedUser = a;
-                      checkLoginStatus();
-                      break;
-                    }
-                  }
-                }     
-              }
-            }
-            function checkLoginStatus()
-            {
-              if(loggedUser == "")
-              { 
-                document.getElementById("signoutBtn").style.display = "none";
-                alert("Please Login")
-                document.getElementById("login").style.display= "block";
-              }
-              if(loggedUser !="")
-              {
-                document.getElementById("signoutBtn").style.display = "inline";
-              }
-            }
-            function logout()
-            {
-              loggedUser = "";
-              document.getElementById("loginBtn").style.display = "inline";
-              document.getElementById("signoutBtn").style.display = "none";
-            }
-            function loadLoginForm()
-            {
-              document.getElementById('login').style.display="block";
-              document.getElementById('login').style.style="width:auto";
-            }
-            function helpPass()
-            {
-              alert("Message Dichroic on Discord");
-            }
-            function openCity(evt, cityName) 
-            {
-              var i, tabcontent, tablinks;
-              tabcontent = document.getElementsByClassName("tabcontent");
-              for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-              }
-              tablinks = document.getElementsByClassName("tablinks");
-              for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-              }
-              document.getElementById(cityName).style.display = "block";
-              evt.currentTarget.className += " active";
-            }
-            function gachaDropDownNav()
-            {
-
-            }
-            function openNav(evt, tabName)
-            { 
-              console.log("Trying func");
-              var i, tabcontent, tablinks;
-              tabcontent = document.getElementsByClassName("tabcontent");
-              for (i = 0; i < tabcontent.length; i++) 
-              {
-                tabcontent[i].style.display = "none";
-              }
-              tablinks = document.getElementsByClassName("tablinks");
-              for (i = 0; i < tablinks.length; i++) 
-              {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-              }
-              document.getElementById(tabName).style.display = "block";
-              evt.currentTarget.className += " active";
-            }
-        </script>
+        <link rel="stylesheet" href="./styles/gachaLog.css" charset="utf-8">
+        <script src="./scripts/homeScript.js"></script>
+        <script src="./scripts/gachaLogFunc.js"></script>
         </head>
     <body onload="checkLoginStatus()">
         <title>GBF Buddy Homepage</title>
@@ -161,12 +47,29 @@
             <button class="tablinksVert">Add Data</button>
             <button class="tablinksVert">View Data</button>  
         </div>
+        <div class="addDataGacha" id="GachaDataAdd">
+          <form id="gachaInput" class="gachaInput">
+            <label for="nName"><b>Username:</b></label>
+            <input type="text" placeholder="Enter Username" name="nName" id="nName" required>
+            <label for="gachatime">Time of Gacha (date and time):</label>
+            <input type="date" id="gachatime" name="gachaDate" min="2022-01-01">
+            <label for="crystalsUsed"><b>Crystals Used</b></label>
+            <input type="text" placeholder="e.g 3000" name="crystalsUsed" id="crystalsUsed" required>
+            <label for="vol">New SSR Chars obtained (between 0 and 99):</label>
+            <input type="number" id="vol" name="vol" min="0" max="99" onchange="loadCharacterDropdown()">
+            <div id="characterAdderSeg">
+              <label for="characterList">SSR Character obtained</label>
+              <select id="characterList" name="characterList" size="1" onchange="loadCharacterImage()">
+                
+              </select>
+              <img id="characterIcon" alt="characterBanner" width="500" height="333">
+            </div>
+          </form>
+        </div>
           <div class="dropdownGacha" id="dropdownGacha">
             <button onclick="gachaDropDownNav()" class="dropbtn">Dropdown</button>
             <div id="gachaDrop" class="dropdown-content">
               <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
             </div>
           </div>
         </div>  

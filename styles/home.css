@@ -219,3 +219,8 @@ span.psw {
   border-left: none;
   height: 300px;
 }
+
+.dropdownGacha
+{
+  display: none;
+}
