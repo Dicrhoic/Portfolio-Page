@@ -128,6 +128,7 @@ function loadGachaLogFile()
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             //console.log(xhttp.responseText);
+            addGachaOutput(this);
         }
     }
 }
@@ -136,6 +137,20 @@ function addGachaOutput(xml)
 {
     var xmlDoc = xml.responseXML;
     var a = xmlDoc.documentElement;
+    var doc = xmlDoc.getElementsByTagName("gachas");
+    newAtt = xmlDoc.createAttribute("gacha");
+    var user = loggedUser;
+    newAtt.nodeValue = user;
+    for(i = 0; i < characterNumber; i++)
+    {   
+        var charId = "char " + i;
+        newCharImg = xmlDoc.createElement("character");
+        newText = document.getElementById(charId).src;
+        newCharImg.appendChild(newText);
+        newAtt.appendChild(newCharImg);
+        console.log("Appending " + newCharImg );
+    }
+    doc.appendChild(newAtt);
 }
 
 let characterNumber = 0;
