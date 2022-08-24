@@ -45,9 +45,13 @@ function credentialAuth(xml) {
 }
 function checkLoginStatus() {
 	if (loggedUser == "") {
+		var audio = new audio('https://gbf.wiki/images/4/40/Vbli_atk_03_b.mp3');
 		document.getElementById("signoutBtn").style.display = "none";
 		alert("Please Login")
+		audio.play();
+		console.log("Playing audio");
 		document.getElementById("login").style.display = "block";
+
 	}
 	if (loggedUser != "") {
 		document.getElementById("signoutBtn").style.display = "inline";
@@ -95,3 +99,7 @@ function openNav(evt, tabName) {
 	document.getElementById(tabName).style.display = "block";
 	evt.currentTarget.className += " active";
 }
+/*
+Due to no php sessions can't be save thus a concecrate js file is used for a mock session
+ */
+//gacha log Functions

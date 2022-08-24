@@ -7,6 +7,9 @@
         <link rel="stylesheet" href="./styles/gachaLog.css" charset="utf-8">
         <script src="./scripts/homeScript.js"></script>
         <script src="./scripts/gachaLogFunc.js"></script>
+        <script type='text/javascript' > 
+          //var loggedUser = ""; 
+        </script>
         </head>
     <body onload="checkLoginStatus()">
         <title>GBF Buddy Homepage</title>
@@ -48,9 +51,8 @@
             <button class="tablinksVert">View Data</button>  
         </div>
         <div class="addDataGacha" id="GachaDataAdd">
-          <form id="gachaInput" class="gachaInput">
             <label for="nName"><b>Username:</b></label>
-            <input type="text" placeholder="Enter Username" name="nName" id="nName" required>
+            <input type="text" placeholder="Enter Username" name="nName" id="nName">
             <label for="gachatime">Time of Gacha (date and time):</label>
             <input type="date" id="gachatime" name="gachaDate" min="2022-01-01">
             <label for="crystalsUsed"><b>Crystals Used</b></label>
@@ -65,7 +67,10 @@
                
               </div>
             </div>
-          </form>
+            <button type="button">Add to Gacha Log Database</button>
+            <div>
+              <button type="button">Cancel</button>
+            </div>
         </div>
           <div class="dropdownGacha" id="dropdownGacha">
             <button onclick="gachaDropDownNav()" class="dropbtn">Dropdown</button>

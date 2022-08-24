@@ -1,3 +1,4 @@
+/*
 function addDateToForm() {
     console.log("loading");
     const d = new Date();
@@ -10,13 +11,23 @@ function addDateToForm() {
     document.getElementsByName('gachaDate').value = date;
 }
 
+*/
+
 function loadCharacterDropdown() {
-    var date = document.getElementById('gachatime').value
-    console.log(date);
-    if (document.getElementById('vol').value != 0) {
-        console.log("Data is avaliable");
-        addCharsToDropDown();
+    if(loggedUser == "")
+    {   
+        checkLoginStatus();
     }
+    else
+    {
+        var date = document.getElementById('gachatime').value
+        console.log(date);
+        if (document.getElementById('vol').value != 0) {
+            console.log("Data is avaliable");
+            addCharsToDropDown();
+        }
+    }
+
 }
 
 function addCharsToDropDown() {
@@ -96,7 +107,38 @@ function fillDropdown(xml) {
     console.log(characterList.size);
 }
 
-const characterNumber = 0;
+/**
+ * Here an import process is used for our mock session
+ */
+
+
+
+function loadGachaLogFile()
+{   
+    if(loggedUser == "")
+    {
+        loginAuth();
+        return; 
+    }
+    var xmlFile = 'GachaLog.xml';
+    parser = new DOMParser();
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", xmlFile, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            //console.log(xhttp.responseText);
+        }
+    }
+}
+
+function addGachaOutput(xml)
+{
+    var xmlDoc = xml.responseXML;
+    var a = xmlDoc.documentElement;
+}
+
+let characterNumber = 0;
 
 function addCharacterToWall() {
     let index = document.getElementById("characterList").selectedIndex;
@@ -105,11 +147,24 @@ function addCharacterToWall() {
     var myDiv = document.getElementById('characterWall');
     var characterArt = document.createElement('img');
     characterArt.setAttribute('src', character.characterImage());
-    character.setAttribute('id', "char " + characterNumber.toString());
+    var idName = "char " + characterNumber.toString();
+    //console.log(idName);
+    characterArt.setAttribute("onclick", "deleteCharArt(this);");
     characterArt.setAttribute('width', "150");
     characterArt.setAttribute('width', "86");
+    characterArt.setAttribute("id", idName);
     myDiv.append(characterArt);
     characterNumber++;
+}
+
+function deleteCharArt(ele)
+{
+    var id = ele.id;
+    var element = document.getElementById(id);
+    console.log("removing " + id);
+    element.remove();
+    console.log("Gone");
+
 }
 
 function loadCharacterImage() {
