@@ -59,10 +59,11 @@
             <input type="number" id="vol" name="vol" min="0" max="99" onchange="loadCharacterDropdown()">
             <div id="characterAdderSeg">
               <label for="characterList">SSR Character obtained</label>
-              <select id="characterList" name="characterList" size="1" onchange="loadCharacterImage()">
-                
-              </select>
-              <img id="characterIcon" alt="characterBanner" width="500" height="333">
+              <select id="characterList" name="characterList" size="1" ></select>
+              <button id="characterObtained" onclick="addCharacterToWall()">Add Character</button>
+              <div id="characterWall">
+               
+              </div>
             </div>
           </form>
         </div>

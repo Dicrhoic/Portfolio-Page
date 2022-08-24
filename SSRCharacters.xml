@@ -1700,29 +1700,4 @@
 	<element>light</element>
 	<image>https://gbf.wiki//images/thumb/6/63/Npc_m_3040056000_01.jpg/150px-Npc_m_3040056000_01.jpg</image>
 	</character>
-<character series="Summer/Yukata">
-	<name>Vira (Summer)</name>
-	<element>earth</element>
-	<image>https://gbf.wiki//images/thumb/d/d0/Npc_m_3040053000_01.jpg/150px-Npc_m_3040053000_01.jpg</image>
-	</character>
-<character series="Summer/Yukata">
-	<name>Yngwie (Yukata)</name>
-	<element>wind</element>
-	<image>https://gbf.wiki//images/thumb/d/df/Npc_m_3040342000_01.jpg/150px-Npc_m_3040342000_01.jpg</image>
-	</character>
-<character series="Summer/Yukata">
-	<name>Yuel (Summer)</name>
-	<element>wind</element>
-	<image>https://gbf.wiki//images/thumb/e/e5/Npc_m_3040210000_01.jpg/150px-Npc_m_3040210000_01.jpg</image>
-	</character>
-<character series="Summer/Yukata">
-	<name>Zahlhamelina (Yukata)</name>
-	<element>light</element>
-	<image>https://gbf.wiki//images/thumb/7/75/Npc_m_3040349000_01.jpg/150px-Npc_m_3040349000_01.jpg</image>
-	</character>
-<character series="Summer/Yukata">
-	<name>Zeta (Summer)</name>
-	<element>light</element>
-	<image>https://gbf.wiki//images/thumb/6/63/Npc_m_3040056000_01.jpg/150px-Npc_m_3040056000_01.jpg</image>
-	</character>
 </characters>
