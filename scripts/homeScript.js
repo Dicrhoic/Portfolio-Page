@@ -45,13 +45,12 @@ function credentialAuth(xml) {
 }
 function checkLoginStatus() {
 	if (loggedUser == "") {
-		var audio = new audio('https://gbf.wiki/images/4/40/Vbli_atk_03_b.mp3');
+		var audio = new Audio('https://gbf.wiki/images/4/40/Vbli_atk_03_b.mp3');
+		audio.play();
 		document.getElementById("signoutBtn").style.display = "none";
 		alert("Please Login")
-		audio.play();
 		console.log("Playing audio");
 		document.getElementById("login").style.display = "block";
-
 	}
 	if (loggedUser != "") {
 		document.getElementById("signoutBtn").style.display = "inline";
