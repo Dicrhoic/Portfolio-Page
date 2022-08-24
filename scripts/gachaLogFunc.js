@@ -91,35 +91,34 @@ function fillDropdown(xml) {
             }
         }
 
-
-
-        console.log(characterList.size);
     }
 
-    const characterNumber = 0;
+    console.log(characterList.size);
+}
 
-    function addCharacterToWall() {
-        let index = document.getElementById("characterList").selectedIndex;
-        console.log("Selected char is at " + index);
-        var character = characterList.get(index);
-        var myDiv = document.getElementById('characterWall');
-        var characterArt = document.createElement('img');
-        characterArt.setAttribute('src', character.characterImage());
-        character.setAttribute('id', "char " + characterNumber.toString());
-        characterArt.setAttribute('width', "150");
-        characterArt.setAttribute('width', "86");
-        myDiv.append(characterArt);
-        characterNumber++;
-    }
+const characterNumber = 0;
 
-    function loadCharacterImage() {
-        let index = document.getElementById("characterList").selectedIndex;
-        console.log("Selected char is at " + index);
-        var character = characterList.get(index);
-        console.log(character.characterImage());
-        document.getElementById('characterIcon').src = character.characterImage();
+function addCharacterToWall() {
+    let index = document.getElementById("characterList").selectedIndex;
+    console.log("Selected char is at " + index);
+    var character = characterList.get(index);
+    var myDiv = document.getElementById('characterWall');
+    var characterArt = document.createElement('img');
+    characterArt.setAttribute('src', character.characterImage());
+    character.setAttribute('id', "char " + characterNumber.toString());
+    characterArt.setAttribute('width', "150");
+    characterArt.setAttribute('width', "86");
+    myDiv.append(characterArt);
+    characterNumber++;
+}
 
-    }
+function loadCharacterImage() {
+    let index = document.getElementById("characterList").selectedIndex;
+    console.log("Selected char is at " + index);
+    var character = characterList.get(index);
+    console.log(character.characterImage());
+    document.getElementById('characterIcon').src = character.characterImage();
+
 }
 
 class Character {
