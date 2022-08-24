@@ -51,6 +51,7 @@ function checkLoginStatus() {
 		audio.play();
 		console.log("Playing audio");
 		document.getElementById("login").style.display = "block";
+
 	}
 	if (loggedUser != "") {
 		document.getElementById("signoutBtn").style.display = "inline";
