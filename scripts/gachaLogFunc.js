@@ -31,7 +31,7 @@ function loadCharacterDropdown() {
 }
 
 function addCharsToDropDown() {
-    var xmlFile = 'SSRCharacters.xml';
+    var xmlFile = './databases/SSRCharacters.xml';
     var xmlDoc, parser, xmlU, xmlP;
     parser = new DOMParser();
     var xhttp = new XMLHttpRequest();
@@ -84,7 +84,7 @@ function fillDropdown(xml) {
                         var image = y[i].childNodes[5].childNodes[0].nodeValue;
                         let newChrter = new Character(name, image);
                         characterList.set(i, newChrter);
-                        console.log(characterList.get(i));
+                        //console.log(characterList.get(i));
                         var selectList = document.getElementById('characterList');
                         var option = document.createElement("option");
                         option.setAttribute("value", name);
@@ -94,8 +94,6 @@ function fillDropdown(xml) {
                         console.log("Image link: " + newChrter.characterImage());
                         console.log("Character Index: " + index);
                         index++;
-                        console.log("Appended " + i + " times");
-                        console.log("Image link: " + newChrter.characterImage());
                     }
 
                 }
@@ -127,30 +125,52 @@ function loadGachaLogFile()
     xhttp.send();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            //console.log(xhttp.responseText);
+            console.log(xhttp.responseText);
             addGachaOutput(this);
         }
     }
 }
 
 function addGachaOutput(xml)
-{
+{   
+    console.log("Appending to gachaLog");
+    var newAtt, newNode;
     var xmlDoc = xml.responseXML;
     var a = xmlDoc.documentElement;
-    var doc = xmlDoc.getElementsByTagName("gachas");
-    newAtt = xmlDoc.createAttribute("gacha");
+    var doc = xmlDoc.getElementsByTagName("gachas")[0];
+    newNode = xmlDoc.createElement("gacha");
+    newAtt = xmlDoc.createAttribute("user");
     var user = loggedUser;
     newAtt.nodeValue = user;
+    var crystals = document.getElementById('crystalsUsed').value;
+    cost = xmlDoc.createElement("crystalsUsed");
+    cost.nodeValue = crystals;
+    newNode.setAttribute("user",loggedUser);
+    newNode.appendChild(cost);
     for(i = 0; i < characterNumber; i++)
     {   
         var charId = "char " + i;
         newCharImg = xmlDoc.createElement("character");
         newText = document.getElementById(charId).src;
-        newCharImg.appendChild(newText);
-        newAtt.appendChild(newCharImg);
+        newCharImg.nodeValue = newText;
+        newNode.appendChild(newCharImg);
         console.log("Appending " + newCharImg );
     }
-    doc.appendChild(newAtt);
+    var y, i, txt, test;
+    doc.appendChild(newNode);
+    test = xmlDoc.createElement("edition");
+    doc.append(test);
+    console.log("Appended to gachaLog");
+    xlen = doc.childNodes.length;
+    y = doc.firstChild;
+    txt = "";
+    for (i = 0; i < xlen; i++) {
+        if (y.nodeType == 1) {
+            txt += y.nodeName;
+        }
+        console.log(txt);
+        y = y.nextSibling;
+    }
 }
 
 let characterNumber = 0;

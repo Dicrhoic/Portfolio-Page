@@ -1,6 +1,6 @@
 var loggedUser = "";
 function loginAuth() {
-	var xmlFile = 'accounts.xml';
+	var xmlFile = './databases/accounts.xml';
 	var xmlDoc, parser, xmlU, xmlP;
 	parser = new DOMParser();
 	var xhttp = new XMLHttpRequest();
@@ -27,7 +27,7 @@ function credentialAuth(xml) {
 			if (y[i].childNodes[z].nodeType != 3) {
 				txt += "Node " + i + " Nodename: " + y[i].childNodes[z].nodeName +
 					" (value at index " + z + ": " + y[i].childNodes[z].childNodes[0].nodeValue + ")";
-				console.log(txt);
+				//console.log(txt);
 				txt = "";
 				var a = y[i].childNodes[1].childNodes[0].nodeValue
 				var b = y[i].childNodes[3].childNodes[0].nodeValue
@@ -49,8 +49,8 @@ function checkLoginStatus() {
 		audio.muted = true;
 		document.getElementById("signoutBtn").style.display = "none";
 		alert("Please Login")
-		console.log("Playing audio");
-		audio.play();
+		//console.log("Playing audio");
+		//audio.play();
 		document.getElementById("login").style.display = "block";
 	}
 	if (loggedUser != "") {
