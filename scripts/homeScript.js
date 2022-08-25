@@ -46,10 +46,11 @@ function credentialAuth(xml) {
 function checkLoginStatus() {
 	if (loggedUser == "") {
 		var audio = new Audio('https://gbf.wiki/images/4/40/Vbli_atk_03_b.mp3');
-		audio.play();
+		audio.muted = true;
 		document.getElementById("signoutBtn").style.display = "none";
 		alert("Please Login")
 		console.log("Playing audio");
+		audio.play();
 		document.getElementById("login").style.display = "block";
 	}
 	if (loggedUser != "") {
