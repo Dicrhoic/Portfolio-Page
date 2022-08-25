@@ -118,7 +118,7 @@ function loadGachaLogFile()
         loginAuth();
         return; 
     }
-    var xmlFile = 'GachaLog.xml';
+    var xmlFile = './databases/GachaLog.xml';
     parser = new DOMParser();
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", xmlFile, true);
