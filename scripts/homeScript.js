@@ -99,6 +99,20 @@ function openNav(evt, tabName) {
 	document.getElementById(tabName).style.display = "block";
 	evt.currentTarget.className += " active";
 }
+
+function openNavBar() {
+    document.getElementById("menuVertNavBar").style.width = "250px";
+    document.getElementById("main").style.marginLeft= "250px";
+    //document.body.style.backgroundColor = "white";
+	LoadDropDownData();
+  }
+
+function closeNav() {
+    document.getElementById("menuVertNavBar").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+    document.body.style.backgroundColor = "white";
+  }
+
 /*
 Due to no php sessions can't be save thus a concecrate js file is used for a mock session
  */
