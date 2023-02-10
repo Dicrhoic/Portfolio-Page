@@ -13,35 +13,54 @@ function addDateToForm() {
 
 */
 
+
+function LoadDropDownData() {
+    characterList.clear();
+    let index = 0;
+    let sqlite3 = require('sqlite3');
+    let db = new sqlite3.Database('./databases/localDB.db', (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log('Connected to the localDB database.');
+    });
+    db.serialize(() => {
+        db.each(`SELECT * 
+				 FROM GachaCharacters`, (err, row) => {
+            if (err) {
+                console.error(err.message);
+            }
+            let charData = new Character(row.Name, row.Series, row.Element, row.Image, row.Link);
+            console.log(charData.name + "\t" + charData.link);
+            characterList.set(index, charData);
+            index++;
+            console.log(characterList.size);
+        });
+    });
+    console.log(characterList.size);
+    retreiveGachaData();
+}
+
 function loadCharacterDropdown() {
-    if(loggedUser == "")
-    {   
-        checkLoginStatus();
-    }
-    else
-    {
+
         var date = document.getElementById('gachatime').value
         console.log(date);
         if (document.getElementById('vol').value != 0) {
             console.log("Data is avaliable");
             addCharsToDropDown();
         }
-    }
+  
 
 }
 
 function addCharsToDropDown() {
-    var xmlFile = './databases/SSRCharacters.xml';
-    var xmlDoc, parser, xmlU, xmlP;
-    parser = new DOMParser();
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET", xmlFile, true);
-    xhttp.send();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            //console.log(xhttp.responseText);
-            fillDropdown(this);
-        }
+    let size = characterList.size;
+    console.log(characterList.size);
+    if (size == 1) {
+        LoadDropDownData();
+    }
+    else {
+        fillDropdown();
     }
 }
 
@@ -49,60 +68,21 @@ const characterList = new Map([
     ["apples", 500],
 ]);
 
-function fillDropdown(xml) {
-
-    characterList.clear();
-    var txt = " ";
-    var xmlDoc = xml.responseXML;
-    var a = xmlDoc.documentElement;
-    var y = xmlDoc.documentElement.childNodes;
-    x = xmlDoc.documentElement.childNodes;
+function fillDropdown() {
     var myDiv = document.getElementById('characterAdderSeg');
     document.getElementById('characterAdderSeg').style.display = "inline";
-    //var selectList = document.createElement("select");
-    //selectList.setAttribute("id", "characterList");
-    //myDiv.appendChild(selectList);
-    var index = 0;
-    var current = 0;
-    for (i = 0; i < x.length; i++) {
-        for (z = 0; z < y[i].childNodes.length; z++) {
-            if (y[i].childNodes[z].nodeType != 3) {
-                txt += "Node " + i + " Nodename: " + y[i].childNodes[z].nodeName +
-                    " (value at index " + z + ": " + y[i].childNodes[z].childNodes[0].nodeValue + ")";
-                //console.log(txt);
-                txt = "";
-                if (z == 1) {
-                    var name = y[i].childNodes[1].childNodes[0].nodeValue;
-                    var image = y[i].childNodes[5].childNodes[0].nodeValue;
-                    let newChrter = new Character(name, image);
-                    characterList.set(index, newChrter);
-                    //console.log("This class is: " + characterList.get(i));
-                    console.log(txt);
-                    txt = "";
-                    if (z == 1) {
-                        var name = y[i].childNodes[1].childNodes[0].nodeValue;
-                        var image = y[i].childNodes[5].childNodes[0].nodeValue;
-                        let newChrter = new Character(name, image);
-                        characterList.set(i, newChrter);
-                        //console.log(characterList.get(i));
-                        var selectList = document.getElementById('characterList');
-                        var option = document.createElement("option");
-                        option.setAttribute("value", name);
-                        option.text = name;
-                        selectList.appendChild(option);
-                        //console.log("Appended " + i + " times");
-                        console.log("Image link: " + newChrter.characterImage());
-                        console.log("Character Index: " + index);
-                        index++;
-                    }
-
-                }
-            }
-        }
-
+    for(const index of characterList.keys())
+    {   
+        const characterData = characterList.get(index);
+        var selectList = document.getElementById('characterList');
+        var option = document.createElement("option");
+        option.setAttribute("value", characterData.name);
+        option.text = characterData.name;
+        selectList.appendChild(option);
+        console.log(index, characterData.name);
     }
 
-    console.log(characterList.size);
+
 }
 
 /**
@@ -111,14 +91,12 @@ function fillDropdown(xml) {
 
 
 
-function loadGachaLogFile()
-{   
-    if(loggedUser == "")
-    {
+function loadGachaLogFile() {
+    if (loggedUser == "") {
         loginAuth();
-        return; 
+        return;
     }
-    var xmlFile = './databases/GachaLog.xml';
+    var xmlFile = 'GachaLog.xml';
     parser = new DOMParser();
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET", xmlFile, true);
@@ -131,8 +109,7 @@ function loadGachaLogFile()
     }
 }
 
-function addGachaOutput(xml)
-{   
+function addGachaOutput(xml) {
     console.log("Appending to gachaLog");
     var newAtt, newNode;
     var xmlDoc = xml.responseXML;
@@ -145,16 +122,15 @@ function addGachaOutput(xml)
     var crystals = document.getElementById('crystalsUsed').value;
     cost = xmlDoc.createElement("crystalsUsed");
     cost.nodeValue = crystals;
-    newNode.setAttribute("user",loggedUser);
+    newNode.setAttribute("user", loggedUser);
     newNode.appendChild(cost);
-    for(i = 0; i < characterNumber; i++)
-    {   
+    for (i = 0; i < characterNumber; i++) {
         var charId = "char " + i;
         newCharImg = xmlDoc.createElement("character");
         newText = document.getElementById(charId).src;
         newCharImg.nodeValue = newText;
         newNode.appendChild(newCharImg);
-        console.log("Appending " + newCharImg );
+        console.log("Appending " + newCharImg);
     }
     var y, i, txt, test;
     doc.appendChild(newNode);
@@ -192,8 +168,7 @@ function addCharacterToWall() {
     characterNumber++;
 }
 
-function deleteCharArt(ele)
-{
+function deleteCharArt(ele) {
     var id = ele.id;
     var element = document.getElementById(id);
     console.log("removing " + id);
@@ -212,12 +187,16 @@ function loadCharacterImage() {
 }
 
 class Character {
-    constructor(name, link) {
+
+    constructor(name, series, element, image, link) {
         this.name = name;
+        this.series = series;
+        this.element = element;
+        this.image = image;
         this.link = link;
     }
     characterImage() {
-        return this.link;
+        return this.image;
     }
     characterName() {
         return this.name;
