@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Edited template of a resume">
     <meta name="author" content="Devcrud">
-    <title>Kevin Vo Le's Portfolio</title>    
-	<link rel="stylesheet" href="Styles/HomePage/home.css">
+    <script src="functions/HomePage/home.js"></script>
+    <title>Kevin Vo Le's Portfolio</title>
+    <link rel="stylesheet" href="Styles/HomePage/home.css">
 </head>
+
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
     <header class="header">
         <div class="container">
             <ul class="social-icons">
 
-            </ul>  
+            </ul>
             <div class="header-content">
-                <h4 class="header-subtitle" >Hello, I am</h4>
+                <h4 class="header-subtitle">Hello, I am</h4>
                 <h1 class="header-title">Kevin Vo Le</h1>
             </div>
         </div>
     </header>
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white" data-spy="affix" data-offset-top="510">
         <div class="container">
-            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
@@ -60,22 +65,43 @@
                 <span class="line mb-5"></span>
                 <ul class="mt40 info list-unstyled">
                     <li><span>Email</span> : kvl.programming@gmail.com</li>
+                    <li id="linkTree" onclick="LoadModal()"><span>LinkTree</span></li>
                 </ul>
             </div>
         </div>
-        
+
+        <div id="infoModal" class="modal">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" onclick="CloseModal()">&times;</span>
+                    <h2></h2>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <li><a href="#">Github</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <h3></h3>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
     <section class="section" id="resume">
         <div class="container">
             <h2 class="mb-5"><span class="text-danger">My</span> Resume</h2>
-            <div class="row">             
+            <div class="row">
                 <div class="col-md-6 col-lg-4">
                     <div class="card">
-                       <div class="card-header">
+                        <div class="card-header">
                             <div class="mt-2">
                                 <h4>Education</h4>
-                                <span class="line"></span>  
+                                <span class="line"></span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -90,17 +116,17 @@
                             <P class="subtitle">Awarded during my study of Computer Science</P>
                             <video width="320" height="240" controls>
                                 <source src="./Assests/video1.webm" type="video/webm">
-                              Your browser does not support the video tag.
-                              </video>
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="card">
-                       <div class="card-header">
+                        <div class="card-header">
                             <div class="pull-left">
                                 <h4 class="mt-2">Skills</h4>
-                                <span class="line"></span>  
+                                <span class="line"></span>
                             </div>
                         </div>
                         <div class="card-body pb-2">
@@ -112,36 +138,36 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                             <div class="pull-left">
-                                 <h4 class="mt-2">Frameworks</h4>
-                                 <span class="line"></span>  
-                             </div>
-                         </div>
-                         <div class="card-body pb-2">
-                             <h6>AWS</h6>
-                             <h6>React/React Native</h6>
-                             <h6>WinForms</h6>
-                             <h6>XCode</h6>
-                             <h6>Android Studio</h6>
-                         </div>
-                     </div>
-                </div>  
+                            <div class="pull-left">
+                                <h4 class="mt-2">Frameworks</h4>
+                                <span class="line"></span>
+                            </div>
+                        </div>
+                        <div class="card-body pb-2">
+                            <h6>AWS</h6>
+                            <h6>React/React Native</h6>
+                            <h6>WinForms</h6>
+                            <h6>XCode</h6>
+                            <h6>Android Studio</h6>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-header">
-                         <div class="pull-left">
-                             <h4 class="mt-2">Other software</h4>
-                             <span class="line"></span>  
-                         </div>
-                     </div>
-                     <div class="card-body pb-2">
+                        <div class="pull-left">
+                            <h4 class="mt-2">Other software</h4>
+                            <span class="line"></span>
+                        </div>
+                    </div>
+                    <div class="card-body pb-2">
                         <h6>Photoshop</h6>
                         <h6>After Effects</h6>
-                     </div>
-                </div>      
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    
-    
+
+
 </body>
