@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="Styles/HomePage/home.css">
 </head>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home" onload="LoadFilter()">
     <header class="header">
         <div class="container">
             <ul class="social-icons">
@@ -168,6 +168,51 @@
         </div>
     </section>
 
+    <section class="section bg-custom-gray" id="portfolio">
+        <div class="container">
+            <h1 class="mb-5"><span class="text-danger">My</span> Portfolio</h1>
+            <input type="text" id="myInput" onkeyup="SearchName()" placeholder="Search via name....">
+            <div class="portfolio">
+                <div class="filters" id="fil">
+                    <a id="fil-all" class="active">
+                        All
+                    </a>
+                    <a id="fil-u">
+                        University
+                    </a>
+                    <a id="fil-p">
+                        Projects
+                    </a>
+                </div>
+                <div class="portfolio-container"> 
+                
 
+                    <table id="myTable">
+                        <tr class="header">
+                          <th style="width:60%;">Name</th>
+                          <th style="width:40%;">Type</th>
+                        </tr>
+                        <tr>
+                          <td><a href="">React Native Form</a> </td>
+                          <td>Project</td>
+                        </tr>
+                        <tr>
+                          <td><a href="">React Native Form</a> </td>
+                          <td>Project</td>
+                        </tr>
+                        <tr>
+                          <td> <a href="">React Native Form</a></td>
+                          <td>University</td>
+                        </tr>
+                        <tr>
+                          <td><a href="">React Native Form</a></td>
+                          <td>University</td>
+                        </tr>
+                      </table>
+                </div> 
+                
+            </div>  
+        </div>            
+    </section>
 
 </body>
