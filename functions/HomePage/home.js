@@ -12,6 +12,28 @@ function CloseModal() {
 function LoadFilter() {
     console.log("Filtering");
     var f = document.getElementById("portfolio");  
+    var fil = f.getElementsByClassName("filt");
+    for(var i = 0; i < fil.length; i++)
+    {
+      console.log("Filter: " + i);
+      fil[i].addEventListener("click", function()
+      {
+        var current = f.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        this.className += " active";
+      });
+    }
+}
+
+function FilterData(c){
+  var x, i;
+  x = document.getElementsByClassName("portfolio");
+  var fil = f.getElementsByClassName("filt");
+  (c == "all") ? c = "" : c = c;
+  for(var i = 0; i < fil.length; i++)
+  {
+    
+  }
 
 }
 

@@ -11237,7 +11237,7 @@ p {
   margin-right: 0;
 }
 
-.portfolio .filters a:hover {
+.portfolio .filters .filt.a:hover {
   opacity: .9;
 }
 
@@ -11246,6 +11246,13 @@ p {
   background: #F85C70;
   color: #fff;
 }
+
+.portfolio .filters .filt.a.active {
+  opacity: 1;
+  background: #F85C70;
+  color: #fff;
+}
+
 
 .portfolio .portfolio-container .portfolio-item {
   position: relative;
